@@ -9,7 +9,7 @@ from ttfnf import get_note_stream
 
 #Set to a very high number for full song production
 #TOTAL_DURATION = 60000
-TOTAL_DURATION = 10000000
+TOTAL_DURATION = 20000
 
 SEGMENT_DURATION = 4000
 
@@ -20,10 +20,10 @@ BACKGROUND_IMAGE = 'input/flame_4s.mp4'
 
 def note_to_file(octave, step_note):
     #temp change octave
-    if octave < 3:
-        octave = 3
-    if octave > 6:
-        octave = 6
+    if octave < 2:
+        octave = 2
+    if octave > 7:
+        octave = 7
     return 'input/music/' + str(octave) + '/' + str(step_note) + '.mp4'
 
 def get_formate_notes():
@@ -212,7 +212,7 @@ def video_process(notes, start_timestamp):
         ffmpeg
         #.filter('amerge', inputs = 2['a'],)
         .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4'),
-            ffmpeg.input('tmp/'+start_timestamp+'/sound.wav')['a'], 'output_'+start_timestamp+'.mp4')
+            ffmpeg.input('tmp/'+start_timestamp+'/sound.wav')['a'], 'tmp/'+start_timestamp+'/output.mp4' )
         #.output('output.mp4')
         .run()
     )

@@ -74,4 +74,6 @@ def get_note_stream():
                         #print(note.tag, note.attrib)
                         duration = note.find('duration')
                         time_pointer -= int(duration.text)
+    #Reverse to make high sound in top of overlay
+    note_stream.reverse()
     return note_stream
