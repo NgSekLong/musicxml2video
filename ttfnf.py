@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-
+#Transform Note to Number
 transform_note_to_number = {
     'C' : 1,
     'D' : 3,
@@ -14,25 +14,17 @@ transform_note_to_number = {
 
 
 def get_note_stream():
+    # This can be any musicxml file, for this time we use ttfaf.xml
+    # You can get this full score here: https://musescore.com/user/10791406/scores/3320776
     tree = ET.parse('input/ttfaf.xml')
     root = tree.getroot()
 
     note_stream = []
+    #Sound level change of different parts
     part_strang = {
         'P1': -4,
         'P2': -12,
     }
-    # Target:
-    # notes = [{
-    #     'note': 'input/g.mp4',
-    #     'start': 1,
-    #     'duration': 3,
-    # },
-    # {
-    #     'note': 'input/c.mp4',
-    #     'start': 0,
-    #     'duration': 3,
-    # }]
 
     time_pointer = 0
     for part in root:
@@ -82,22 +74,4 @@ def get_note_stream():
                         #print(note.tag, note.attrib)
                         duration = note.find('duration')
                         time_pointer -= int(duration.text)
-    # for note in note_stream:
-    #     print(note)
     return note_stream
-# <note default-x="106.89" default-y="-105.00">
-#     <pitch>
-#         <step>F</step>
-#         <octave>5</octave>
-#     </pitch>
-#     <duration>12</duration>
-#     <voice>5</voice>
-#     <type>eighth</type>
-#     <stem>down</stem>
-#     <staff>2</staff>
-#     <beam number="1">begin</beam>
-# </note>
-
-
-
-# def handle_note (measure):

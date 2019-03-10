@@ -6,21 +6,6 @@ import time
 from ttfnf import get_note_stream
 
 
-#print (get_note_stream())
-# notes = [{
-#     'note': 'input/g.mp4',
-#     'start': 0,
-#     'duration': 3,
-# },{
-#     'note': 'input/c.mp4',
-#     'start': 5,
-#     'duration': 1,
-# },
-# {
-#     'note': 'input/c.mp4',
-#     'start': 3,
-#     'duration': 1,
-# }]
 
 #Set to a very high number for full song production
 #TOTAL_DURATION = 60000
@@ -43,10 +28,10 @@ def note_to_file(octave, step_note):
 
 def get_formate_notes():
     musicxml_notes = get_note_stream()
+    #Limit song length on a note level (Note: might drop another part doing so)
     #musicxml_notes = get_note_stream()[:50]
     notes = []
     common_division = 80
-    #common_division = 25
 
     for note in musicxml_notes:
         new_note = {
@@ -67,7 +52,6 @@ def get_formate_notes():
             new_note['alter'] = note['alter']
         notes.append(new_note)
 
-    #print(notes)
     for note in notes:
         print(note)
     return notes
