@@ -125,6 +125,61 @@
                 <staff>1</staff>
                 <sound tempo="180"/>
             </direction>
+            <!-- Init -->
+            <note>
+                <rest/>
+                <duration>48</duration>
+                <voice>5</voice>
+                <type>eighth</type>
+                <staff>2</staff>
+            </note>
+            <note default-x="81.26" default-y="-5.00">
+                <pitch>
+                    <step>C</step>
+                    <octave>5</octave>
+                </pitch>
+                <duration>144</duration>
+                <voice>1</voice>
+                <type>eighth</type>
+                <accidental>flat</accidental>
+                <stem>down</stem>
+                <staff>1</staff>
+                <beam number="1">begin</beam>
+            </note>
+            <note default-x="81.26" default-y="-5.00">
+                <pitch>
+                    <step>D</step>
+                    <octave>5</octave>
+                </pitch>
+                <duration>192</duration>
+                <voice>1</voice>
+                <type>eighth</type>
+                <accidental>flat</accidental>
+                <stem>down</stem>
+                <staff>1</staff>
+                <beam number="1">begin</beam>
+            </note>
+            <note default-x="81.26" default-y="-5.00">
+                <pitch>
+                    <step>E</step>
+                    <octave>5</octave>
+                </pitch>
+                <duration>192</duration>
+                <voice>1</voice>
+                <type>eighth</type>
+                <accidental>flat</accidental>
+                <stem>down</stem>
+                <staff>1</staff>
+                <beam number="1">begin</beam>
+            </note>
+            <note>
+                <rest/>
+                <duration>92</duration>
+                <voice>5</voice>
+                <type>eighth</type>
+                <staff>2</staff>
+            </note>
+            <!-- Init END -->
             <note default-x="81.26" default-y="-5.00">
                 <pitch>
                     <step>E</step>
@@ -42021,6 +42076,15 @@
                     <line>4</line>
                 </clef>
             </attributes>
+            <!-- Init -->
+            <note>
+                <rest/>
+                <duration>672</duration>
+                <voice>5</voice>
+                <type>eighth</type>
+                <staff>2</staff>
+            </note>
+            <!-- Init END -->
             <note>
                 <rest/>
                 <duration>96</duration>
