@@ -7,23 +7,6 @@ from ttfnf import get_note_stream
 
 import config
 
-
-
-#Set to a very high number for full song production
-#config.total_duration = 60000
-# config.total_duration = 10000000
-# #config.total_duration = 32000
-# config.segment_duration = 4000
-#
-# config.subvideo.x_max = 1300
-# config.subvideo.y_max = 500
-#
-# config.extended_note.notes = [1,3,5]
-# config.extended_note.octave = 5
-# config.extended_note['duration'] = 2
-
-#BACKGROUND_IMAGE = 'input/flame_4s.mp4'
-
 def note_to_file(octave, step_note):
     #temp change octave
     if octave < 2:
@@ -67,7 +50,7 @@ def get_formate_notes():
 
 ###########Audio part####################
 def audio_process(notes, start_timestamp):
-    output_audio = AudioSegment.silent(400000)# AudioSegment.from_file("g.mp4", "mp4")
+    output_audio = AudioSegment.silent(400000)
     for note in notes:
         if not ('step_note' in note):
             #Slient sound
@@ -90,14 +73,9 @@ def audio_process(notes, start_timestamp):
         #Change strength:
         print('Processing Audio: Start: ',start, 'Duration:',duration)
     output_audio.export("tmp/"+start_timestamp+"/sound.wav", format="wav")
-    #exit()
 
 #############Video part################3
 def video_process(notes, start_timestamp):
-    #stream = ffmpeg.input('input/background.mp4')
-    # stream = ffmpeg.input('input/black.mp4')
-    # stream = ffmpeg.output(stream, 'tmp/'+start_timestamp+'/processing_1.mp4')
-    # ffmpeg.run(stream)
     all_video_path = set()
     for note in notes:
         if not ('step_note' in note):
@@ -125,8 +103,6 @@ def video_process(notes, start_timestamp):
             segment_video = ffmpeg.input(config.background_video)
 
         print('segment', segment, 'segment_start',segment_start, 'start', start)
-        #continue
-        #stream = ffmpeg.input('tmp/'+start_timestamp+'/processing_1.mp4')
         note_file = note_to_file(note['octave'], note['step_note'])
         #clear temp mp4
         if os.path.exists("tmp/"+start_timestamp+"/tmp.mp4"):
@@ -137,10 +113,8 @@ def video_process(notes, start_timestamp):
             .input(note_file)
             .trim(start=0, end=note['duration'])
             .output( 'tmp/'+start_timestamp+'/tmp.mp4')
-            #.output('output.mp4')
             .run()
         )
-        #exit()
         #output sliced video to temp
         #
         segment_video = ffmpeg.overlay(segment_video,
@@ -154,12 +128,6 @@ def video_process(notes, start_timestamp):
         ffmpeg.run(segment_video)
 
 
-        # os.remove("tmp/"+start_timestamp+"/processing_1.mp4")
-        # os.rename('tmp/'+start_timestamp+'/processing_2.mp4','tmp/'+start_timestamp+'/processing_1.mp4')
-        #exit()
-    # stream = ffmpeg.output(stream, 'tmp/output_without_sound.mp4')
-    # ffmpeg.run(stream)
-
     #########Combine Video together###################3
     list_path = 'tmp/'+start_timestamp+'/combine_list.txt'
     combine_list = open(list_path,'a')
@@ -170,62 +138,12 @@ def video_process(notes, start_timestamp):
 
     os.system("ffmpeg -f concat -safe 0 -i "+list_path+" -c copy tmp/"+start_timestamp+"/combine_video.mp4")
 
-    # (
-    #     ffmpeg
-    #     .input('tmp/mylist.txt', format='concat', safe=0)
-    #     #.filter('concat')
-    #     .trim(start=0, end=note['duration'])
-    #     .output( 'tmp/'+start_timestamp+'/combined_video.mp4', c='copy')
-    #     #.output('output.mp4')
-    #     .run()
-    # )
-    #exit()
-
-    # combine_video = ffmpeg.input('input/black.mp4')
-    # # for video_path in all_video_path:
-    # #     combine_video = ffmpeg.concat(combine_video, ffmpeg.input(video_path))
-    # for video_path in all_video_path:
-    #     #combine_video = ffmpeg.concat(combine_video, **[ffmpeg.input(video_path)])
-    #     combine_video = ffmpeg.input(combine_video, format='concat', safe=0)
-    # combine_video = ffmpeg.output(combine_video, 'tmp/'+start_timestamp+'/combined_video.mp4', c='copy')
-    # ffmpeg.run(combine_video)
-
-    # (
-    #     ffmpeg
-    #     .concat(
-    #         in_file.trim(start_frame=10, end_frame=20),
-    #         in_file.trim(start_frame=30, end_frame=40),
-    #     )
-    #     .overlay(overlay_file.hflip())
-    #     .drawbox(50, 50, 120, 120, color='red', thickness=5)
-    #     .output('out.mp4')
-    #     .run()
-    # )
-    #exit()
-
-
-    # (
-    #     ffmpeg
-    #     .input('c.mp4')
-    #     .overlay(
-    #         ffmpeg.input('g_20_20.mp4',itsoffset = 1)
-    #     , x=100)
-    #     #.filter('amerge', inputs = 2['a'],)
-    #     .output( 'output_without_sound.mp4')
-    #     #.output('output.mp4')
-    #     .run()
-    # )
-
     (
         ffmpeg
-        #.filter('amerge', inputs = 2['a'],)
         .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4'),
             ffmpeg.input('tmp/'+start_timestamp+'/sound.wav')['a'], 'tmp/'+start_timestamp+'/output.mp4' )
-        #.output('output.mp4')
         .run()
     )
-    #os.remove("tmp/sound.wav")
-    #os.remove("tmp/processing_1.mp4")
 
 
 ############ Main Process ####################
