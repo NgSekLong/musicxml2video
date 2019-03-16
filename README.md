@@ -7,9 +7,8 @@ Convert an MusicXML score to play by your selected video sample
 2. Try out the convertion by `python main.py`
 
 # How to setup your own video
-1. Change the `CAPITCAL_LETTER` variable for change to made
-2. change the `input/music/{octave}/{note}.mp4` videos to match the request, for for which notes correspond to which sound, see below
-
+1. edit the `config.py` to change parameter!
+2. To add instrument, go to `input` folder, then add an folder name of your instrument. Change the `input/{instrument}/{octave}/{note}.mp4` videos to match the request, for for which notes correspond to which sound, see below:
 
 `
 C => 1
@@ -25,3 +24,4 @@ A => 10
 A# => 11
 B => 12
 `
+3. Have fun!

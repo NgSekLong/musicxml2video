@@ -9,10 +9,10 @@ import config
 
 def note_to_file(octave, step_note):
     #temp change octave
-    if octave < 2:
-        octave = 2
-    if octave > 7:
-        octave = 7
+    if octave < config.min_octave:
+        octave = config.min_octave
+    if octave > config.max_octave:
+        octave = config.max_octave
     return 'input/music/' + str(octave) + '/' + str(step_note) + '.mp4'
 
 def get_formate_notes():
