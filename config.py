@@ -30,13 +30,13 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 4000000
+total_duration = 4000
 
 #Divisino the duration to make control the speed of the video & audio
 speed_control = 80
 
 segment_duration = 4000
-audio_only = True
+audio_only = False
 
 extended_note = {
     'notes': [1,3,5],

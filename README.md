@@ -4,7 +4,8 @@ Convert an MusicXML score to play by your selected video sample
 # Try it out!
 
 1. `pip install ffmpeg and pydub`
-2. Try out the convertion by `python main.py`
+2. Install `ffmpeg` in your system!
+3. Try out the convertion by `python main.py`
 
 # How to setup your own video
 1. edit the `config.py` to change parameter!
