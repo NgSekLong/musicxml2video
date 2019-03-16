@@ -30,7 +30,7 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 10000
+total_duration = 20000
 
 #Divisino the duration to make control the speed of the video & audio
 speed_control = 80
