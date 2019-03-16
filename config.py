@@ -1,7 +1,7 @@
 
-#Set to a very high number for full song production
+#Don't set it too high or else the audio will be very high
 #TOTAL_DURATION = 60000
-total_duration = 16000
+total_duration = 400000
 #TOTAL_DURATION = 32000
 segment_duration = 4000
 subvideo = {
