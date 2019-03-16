@@ -2,14 +2,16 @@ import ffmpeg
 import random
 import os
 import time
+import datetime
 from musicxml_processor import note_to_file
 import config
 from multiprocessing import Process, Pool, Manager
 
 
-#def segment_video_mutliprocess(segment, segment_video_infos, start_timestamp, all_video_path_dict):
 def segment_video_mutliprocess( segment_video_infos ):
-    print('segment_video_infos', segment_video_infos)
+    segment_video_start_time = time.time()
+
+    import datetime
     segment = segment_video_infos['segment']
     start_timestamp = segment_video_infos['start_timestamp']
     segment_video_path = "tmp/"+start_timestamp+"/video_" +str(segment).zfill(3)+ ".mp4"
@@ -21,8 +23,6 @@ def segment_video_mutliprocess( segment_video_infos ):
         duration = segment_video_info['duration']
         octave = segment_video_info['octave']
 
-
-        #all_video_path_dict[segment] = segment_video_path
 
         segment_video = None
         if os.path.exists(segment_video_path):
@@ -42,9 +42,12 @@ def segment_video_mutliprocess( segment_video_infos ):
             ffmpeg
             .input(note_file)
             .trim(start=0, end=duration)
-            .output( temp_mp4)
+            .output(temp_mp4, preset= 'ultrafast',  loglevel='panic')
             .run()
         )
+
+        #-hide_banner -loglevel panic
+        #-preset fast
         #output sliced video to temp
         segment_video = ffmpeg.overlay(segment_video,
             ffmpeg.input(temp_mp4,itsoffset = segment_start/float(1000)),
@@ -53,8 +56,13 @@ def segment_video_mutliprocess( segment_video_infos ):
             eof_action='pass'
         )
         segment_video = ffmpeg.trim(segment_video, start=0, end=config.segment_duration / float(1000))
-        segment_video = ffmpeg.output(segment_video, segment_video_path)
+        segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
         ffmpeg.run(segment_video)
+
+    segment_video_end_time = time.time()
+    segment_video_elapsed = segment_video_end_time - segment_video_start_time
+    
+    print('Video process segment: '  + str(segment) + ' done, total duration: '+ str(datetime.timedelta(seconds=segment_video_elapsed)))
     return segment_video_path
 
 def video_process(notes, start_timestamp):
@@ -76,17 +84,6 @@ def video_process(notes, start_timestamp):
         segment = int(start / float(config.segment_duration))
         segment_start = int(start - segment * config.segment_duration)
 
-        # segment_video_info = {
-        #     "segment" : segment,
-        #     "start_timestamp" : start_timestamp,
-        #     "data": {
-        #         "segment_start" : segment_start,
-        #         "step_note" : note['step_note'],
-        #         "note_instrument" : note['note_instrument'],
-        #         "octave" : note['octave'],
-        #         "duration" : note['duration'],
-        #     },
-        # }
         segment_video_info = {
             "segment_start" : segment_start,
             "step_note" : note['step_note'],
@@ -101,38 +98,19 @@ def video_process(notes, start_timestamp):
                 "data" : [],
             }
         all_segment_video_infos[segment]["data"].append(segment_video_info)
-        # if not (segment in all_segment_video_infos):
-        #     all_segment_video_infos[segment] = []
-        # all_segment_video_infos[segment].append(segment_video_info)
 
     #change all_segment_video_infos from dict to list
 
-    print('all_segment_video_infos before dict to list', all_segment_video_infos)
+    #print('all_segment_video_infos before dict to list', all_segment_video_infos)
     all_segment_video_infos_list = []
     for key, value in all_segment_video_infos.items():
         all_segment_video_infos_list.append(value)
     all_segment_video_infos = all_segment_video_infos_list
-    print('all_segment_video_infos', all_segment_video_infos)
-
-    ######################Multiprocess by using Process#########################
-    # processes = []
-    # manager = Manager()
-    # all_video_path_dict = manager.dict()
-    # for segment, segment_video_infos in all_segment_video_infos.items():
-    #     process = Process(target=segment_video_mutliprocess, args=(segment, segment_video_infos, start_timestamp, all_video_path_dict))
-    #     processes.append(process)
-    #
-    #     # Processes are spawned by created a Process object and
-    #     # then calling its start() method.
-    #     process.start()
-    # for process in processes:
-    #     process.join()
-
-    ######################Multiprocess by using Process End#########################
+    #print('all_segment_video_infos', all_segment_video_infos)
 
 
     ######################Multiprocess by using Pool#########################
-    p = Pool(processes=6)
+    p = Pool(processes=config.multiprocessing_max_core)
     #all_segment_video_infos = range(1,5)
     all_video_path = p.map(segment_video_mutliprocess, all_segment_video_infos)
     p.close()
@@ -140,17 +118,10 @@ def video_process(notes, start_timestamp):
 
 
     ######################Multiprocess by using Pool End#########################
-    #print ('all_video_path_dict.values', all_video_path_dict.values())
-
 
     #########Combine Video together###################3
     list_path = 'tmp/'+start_timestamp+'/combine_list.txt'
     combine_list = open(list_path,'a')
-    # dict to list
-    # all_video_path = []
-    # for key, value in all_video_path_dict.items():
-    #     temp = [key,value]
-    #     all_video_path.append(value)
 
     # Sort the list
     all_video_path = sorted(all_video_path)
@@ -158,15 +129,16 @@ def video_process(notes, start_timestamp):
         combine_list.write("file '../../" + video_path + "'" + '\n')
     combine_list.close()
 
-    os.system("ffmpeg -f concat -safe 0 -i "+list_path+" -c copy tmp/"+start_timestamp+"/combine_video.mp4")
+    os.system("ffmpeg -loglevel panic -f concat -safe 0 -i "+list_path+" -c copy tmp/"+start_timestamp+"/combine_video.mp4")
 
+    print("Combining video segment together")
     (
         ffmpeg
-        .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4'),
+        .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4',  loglevel='warning'),
             ffmpeg.input('tmp/'+start_timestamp+'/sound.wav')['a'], 'tmp/'+start_timestamp+'/output.mp4' )
         .run()
     )
     video_end_time = time.time()
     video_elapsed = video_end_time - video_start_time
 
-    print("Video process total duration: " + str(video_elapsed))
+    print("Video process total duration: " + str(datetime.timedelta(seconds=video_elapsed)))

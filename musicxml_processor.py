@@ -72,7 +72,6 @@ def get_note_stream():
                         #single_note['note'] = 'input/c.mp4'
                         note_stream.append(single_note)
                     elif note.tag == 'backup':
-                        #print(note.tag, note.attrib)
                         duration = note.find('duration')
                         time_pointer -= int(duration.text)
     #Reverse to make high sound in top of overlay
@@ -108,8 +107,6 @@ def get_formated_notes():
 
         notes.append(new_note)
 
-    for note in notes:
-        print(note)
     return notes
 
 def note_to_file(octave, step_note, instrument):

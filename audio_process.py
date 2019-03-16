@@ -1,6 +1,7 @@
 from pydub import AudioSegment
 import os
 import time
+import datetime
 from musicxml_processor import note_to_file
 import config
 
@@ -30,7 +31,6 @@ def insert_to_audio_segment(start, audio):
 
 
 def audio_process(notes, start_timestamp):
-    #output_audio = AudioSegment.silent(400000)
     audio_start_time = time.time()
     max_audio_duration = 0
     for note in notes:
@@ -48,13 +48,10 @@ def audio_process(notes, start_timestamp):
         if start > config.total_duration:
             #Control video length
             continue
-        #audio = AudioSegment.from_file(note_file, "mp4")
         audio = check_audio_cache(note['octave'], note['step_note'], note_file)
         audio = audio[:duration]
-        #audio = AudioSegment.silent(start) + audio
         if note['note_strength'] != 0:
             audio = audio + note['note_strength']
-        #output_audio = output_audio.overlay(audio)
         insert_to_audio_segment(start, audio)
         #Change strength:
         print('Processing Audio: Start: ',start, 'Duration:',duration)
@@ -66,10 +63,9 @@ def audio_process(notes, start_timestamp):
         print('Processing Audio: Segment: ',segment, 'Segment Duration:',config.segment_duration)
         total_segment_audio = AudioSegment.silent(segment * config.segment_duration) + segment_audio
         output_audio = output_audio.overlay(total_segment_audio)
-        #output_audio = AudioSegment.silent(segment * config.segment_duration) + segment_audio
     output_audio.export("tmp/"+start_timestamp+"/sound.wav", format="wav")
 
     audio_end_time = time.time()
     audio_elapsed = audio_end_time - audio_start_time
 
-    print("Audio process total duration: " + str(audio_elapsed))
+    print("Audio process total duration: " + str(datetime.timedelta(seconds=audio_elapsed)))

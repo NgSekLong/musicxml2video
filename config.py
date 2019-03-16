@@ -30,7 +30,8 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 20000
+total_duration = 500000
+#total_duration = 8000
 
 #Divisino the duration to make control the speed of the video & audio
 speed_control = 80
@@ -53,6 +54,9 @@ subvideo = {
     'x_max': 1300,
     'y_max': 500,
 }
+
+# 6 core => Video process total duration: 166.392323017
+multiprocessing_max_core = 6
 
 
 background_video = 'input/flame_4s.mp4'
