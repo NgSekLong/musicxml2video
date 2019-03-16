@@ -47,10 +47,20 @@ def get_formate_notes():
         print(note)
     return notes
 
-
 ###########Audio part####################
+
+#Implement a audio caching
+audio_cache = {}
+def check_audio_cache(octave, step_note, note_file):
+
+    key = str(octave) + '-' + str(step_note)
+    if key in audio_cache:
+        return audio_cache[key]
+    audio_cache[key] = AudioSegment.from_file(note_file, "mp4")
+    return audio_cache[key]
 def audio_process(notes, start_timestamp):
     output_audio = AudioSegment.silent(400000)
+    audio_start_time = time.time()
     for note in notes:
         if not ('step_note' in note):
             #Slient sound
@@ -64,7 +74,8 @@ def audio_process(notes, start_timestamp):
         if start > config.total_duration:
             #Temp continue to test full song
             continue
-        audio = AudioSegment.from_file(note_file, "mp4")
+        #audio = AudioSegment.from_file(note_file, "mp4")
+        audio = check_audio_cache(note['octave'], note['step_note'], note_file)
         audio = audio[:duration]
         audio = AudioSegment.silent(start) + audio
         if note['note_strength'] != 0:
@@ -73,6 +84,10 @@ def audio_process(notes, start_timestamp):
         #Change strength:
         print('Processing Audio: Start: ',start, 'Duration:',duration)
     output_audio.export("tmp/"+start_timestamp+"/sound.wav", format="wav")
+
+    audio_end_time = time.time()
+    audio_elapsed = audio_end_time - audio_start_time
+    print(audio_elapsed)
 
 #############Video part################3
 def video_process(notes, start_timestamp):
@@ -157,4 +172,5 @@ if not os.path.exists(directory):
 
 notes = get_formate_notes()
 audio_process(notes, start_timestamp)
-video_process(notes, start_timestamp)
+if config.audio_only == False:
+    video_process(notes, start_timestamp)

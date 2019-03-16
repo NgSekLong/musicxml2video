@@ -1,7 +1,7 @@
 
 #Set to a very high number for full song production
 #TOTAL_DURATION = 60000
-total_duration = 8000
+total_duration = 16000
 #TOTAL_DURATION = 32000
 segment_duration = 4000
 subvideo = {
@@ -21,3 +21,5 @@ extended_note = {
 # extended_note_duration = 2
 
 background_video = 'input/flame_4s.mp4'
+
+audio_only = True
