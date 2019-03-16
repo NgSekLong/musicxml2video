@@ -7,12 +7,13 @@ import config
 
 
 ############ Main Process ####################
-start_timestamp = str(int(time.time()))
-directory = 'tmp/'+start_timestamp
-if not os.path.exists(directory):
-    os.makedirs(directory)
+if __name__ == '__main__':
+    start_timestamp = str(int(time.time()))
+    directory = 'tmp/'+start_timestamp
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-notes = get_formated_notes()
-audio_process(notes, start_timestamp)
-if config.audio_only == False:
-    video_process(notes, start_timestamp)
+    notes = get_formated_notes()
+    audio_process(notes, start_timestamp)
+    if config.audio_only == False:
+        video_process(notes, start_timestamp)
