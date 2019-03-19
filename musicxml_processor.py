@@ -115,4 +115,4 @@ def note_to_file(octave, step_note, instrument):
         octave = 2
     if octave > 7:
         octave = 7
-    return instrument + '/' + str(octave) + '/' + str(step_note) + '.mp4'
+    return instrument + '/' + str(octave) + '/' + str(step_note) + '.' + config.audio_file_suffix

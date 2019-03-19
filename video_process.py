@@ -30,8 +30,10 @@ def segment_video_mutliprocess( segment_video_infos ):
             segment_video = ffmpeg.input(segment_video_path + '.old')
         else:
             segment_video = ffmpeg.input(config.background_video)
-
-        note_file = note_to_file(octave, step_note, note_instrument)
+        if config.one_video_only['enabled']:
+            note_file = note_instrument + '/video.mp4'
+        else:
+            note_file = note_to_file(octave, step_note, note_instrument)
 
         temp_mp4 = "tmp/"+start_timestamp+"/tmp"+str(segment)+".mp4"
         #clear temp mp4
@@ -46,8 +48,6 @@ def segment_video_mutliprocess( segment_video_infos ):
             .run()
         )
 
-        #-hide_banner -loglevel panic
-        #-preset fast
         #output sliced video to temp
         segment_video = ffmpeg.overlay(segment_video,
             ffmpeg.input(temp_mp4,itsoffset = segment_start/float(1000)),
@@ -61,7 +61,7 @@ def segment_video_mutliprocess( segment_video_infos ):
 
     segment_video_end_time = time.time()
     segment_video_elapsed = segment_video_end_time - segment_video_start_time
-    
+
     print('Video process segment: '  + str(segment) + ' done, total duration: '+ str(datetime.timedelta(seconds=segment_video_elapsed)))
     return segment_video_path
 

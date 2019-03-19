@@ -14,7 +14,7 @@ def check_audio_cache(octave, step_note, note_file):
     key = str(octave) + '-' + str(step_note)
     if key in audio_cache:
         return audio_cache[key]
-    audio_cache[key] = AudioSegment.from_file(note_file, "mp4")
+    audio_cache[key] = AudioSegment.from_file(note_file, config.audio_file_suffix)
     return audio_cache[key]
 def insert_to_audio_segment(start, audio):
     segment = int(start / float(config.segment_duration))

@@ -10,8 +10,8 @@ part_strength = {
 }
 
 part_instrument = {
-    'P1': 'input/ahhh',
-    'P2': 'input/ahhh',
+    'P1': 'input/woah',
+    'P2': 'input/woah',
 }
 
 #Note to number transformation
@@ -30,7 +30,7 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 500000
+total_duration = 20000
 #total_duration = 8000
 
 #Divisino the duration to make control the speed of the video & audio
@@ -46,14 +46,17 @@ extended_note = {
 }
 
 #############For Audio Only##########################
-#Currently none!
-
+audio_file_suffix = 'mp3'
 
 ############For Video Only##########################
+one_video_only = {
+    'enabled' : True,
+}
 subvideo = {
-    'x_max': 1300,
+    'x_max': 1000,
     'y_max': 500,
 }
+is_remove_green_screen = True
 
 # 6 core => Video process total duration: 166.392323017
 multiprocessing_max_core = 6

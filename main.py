@@ -13,7 +13,6 @@ if __name__ == '__main__':
     directory = 'tmp/'+start_timestamp
     if not os.path.exists(directory):
         os.makedirs(directory)
-
     notes = get_formated_notes()
     audio_process(notes, start_timestamp)
     if config.audio_only == False:
