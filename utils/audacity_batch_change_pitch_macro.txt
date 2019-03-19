@@ -1,0 +1,389 @@
+SelectAll:
+ChangePitch:Percentage="-94.101" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-93.75" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-93.378" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-92.985" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-92.567" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-92.125" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-91.657" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-91.161" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-90.636" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-90.079" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-89.489" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-88.864" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-88.202" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-87.5" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-86.757" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-85.969" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-85.135" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-84.251" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-83.314" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-82.322" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-81.271" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-80.157" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-78.978" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-77.728" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-76.403" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-75.0" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-73.513" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-71.938" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-70.27" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-68.502" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-66.629" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-64.645" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-62.542" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-60.315" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-57.955" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-55.455" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-52.806" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-50.0" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-47.027" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-43.877" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-40.54" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-37.004" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-33.258" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-29.289" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-25.085" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-20.63" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-15.91" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-10.91" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="-5.613" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="0.0" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="5.946" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="12.246" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="18.921" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="25.992" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="33.484" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="41.421" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="49.831" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="58.74" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="68.179" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="78.18" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="88.775" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="100.0" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="111.893" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="124.492" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="137.841" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="151.984" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="166.968" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="182.842" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="199.661" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="217.48" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="236.358" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="256.359" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="277.549" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="300.0" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="323.785" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="348.984" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="375.682" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="403.968" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="433.935" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="465.685" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="499.322" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="534.96" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="572.716" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="612.718" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="655.098" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="699.999" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="747.569" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="797.968" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="851.364" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="907.935" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="967.87" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1031.369" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1098.644" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1169.919" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1245.432" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1325.435" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
+ChangePitch:Percentage="1410.196" SBSMS="1"
+ExportMp3:
+Undo:
+Redo:
