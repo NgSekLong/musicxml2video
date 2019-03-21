@@ -23,13 +23,12 @@ def segment_video_mutliprocess( segment_video_infos ):
         duration = segment_video_info['duration']
         octave = segment_video_info['octave']
 
+        temp_mp4 = "tmp/"+start_timestamp+"/tmp"+str(segment)+".mp4"
+        #clear temp mp4
+        if os.path.exists(temp_mp4):
+            os.remove(temp_mp4)
 
-        segment_video = None
-        if os.path.exists(segment_video_path):
-            os.rename(segment_video_path, segment_video_path + '.old')
-            segment_video = ffmpeg.input(segment_video_path + '.old')
-        else:
-            segment_video = ffmpeg.input(config.background_video)
+
         if config.one_video_only['enabled']:
             note_file = note_instrument + '/video.mp4'
         else:
@@ -48,16 +47,50 @@ def segment_video_mutliprocess( segment_video_infos ):
             .run()
         )
 
-        #output sliced video to temp
-        segment_video = ffmpeg.overlay(segment_video,
-            ffmpeg.input(temp_mp4,itsoffset = segment_start/float(1000)),
-            x=random.randint(1,config.subvideo['x_max']),
-            y=random.randint(1,config.subvideo['y_max']),
-            eof_action='pass'
-        )
-        segment_video = ffmpeg.trim(segment_video, start=0, end=config.segment_duration / float(1000))
-        segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
-        ffmpeg.run(segment_video)
+
+
+        #ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp4
+
+        segment_video = None
+        segment_video_input_file = None
+        segment_video_output_file = segment_video_path
+        if os.path.exists(segment_video_path):
+            os.rename(segment_video_path, segment_video_path + '.old')
+            segment_video_input_file = segment_video_path + '.old'
+        else:
+            segment_video_input_file = config.background_video
+
+        if config.green_screen['config'] == True:
+            green_screen_color = config.green_screen['color']
+            green_screen_similarity = config.green_screen['similarity']
+            green_screen_blend = config.green_screen['blend']
+            itsoffset = segment_start/float(1000)
+            x=random.randint(config.subvideo['x_min'],config.subvideo['x_max'])
+            y=random.randint(config.subvideo['y_min'],config.subvideo['y_max'])
+            end=config.segment_duration / float(1000)
+
+            #print('segment_video_input_file',segment_video_input_file,'segment_video_output_file',segment_video_output_file)
+            ffmpeg_command =  ("ffmpeg -i "+segment_video_input_file + " "
+                " -itsoffset " + str(itsoffset) + " -i "+temp_mp4 +" "
+                "-loglevel error -preset ultrafast " #-loglevel panic
+                "-t "+str(end)+" "
+                "-filter_complex '[1:v]colorkey=0x"+green_screen_color+":"+green_screen_similarity+":"+green_screen_blend+" "
+                "[ckout];[0:v][ckout]overlay=x=" + str(x) + ":y=" + str(y) + ":eof_action=pass[out]' -map '[out]' " + segment_video_output_file+" "
+            )
+            os.system(ffmpeg_command)
+            #os.system("ffmpeg -i "+segment_video_input_file+" -itsoffset "+str(segment_start/float(1000))+" -i "+temp_mp4+" -loglevel panic -preset ultrafast -filter_complex '[1:v]colorkey=0x"+green_screen_color+":"+green_screen_similarity+":"+green_screen_blend+"[ckout];[0:v][ckout]overlay[out]' -map '[out]' " + segment_video_output_file)
+        else:
+            segment_video = ffmpeg.input(segment_video_input_file)
+            #output sliced video to temp
+            segment_video = ffmpeg.overlay(segment_video,
+                ffmpeg.input(temp_mp4,itsoffset = segment_start/float(1000)),
+                x=random.randint(1,config.subvideo['x_max']),
+                y=random.randint(1,config.subvideo['y_max']),
+                eof_action='pass'
+            )
+            segment_video = ffmpeg.trim(segment_video, start=0, end=config.segment_duration / float(1000))
+            segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
+            ffmpeg.run(segment_video)
 
     segment_video_end_time = time.time()
     segment_video_elapsed = segment_video_end_time - segment_video_start_time

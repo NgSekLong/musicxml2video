@@ -30,7 +30,7 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 20000
+total_duration = 10000
 #total_duration = 8000
 
 #Divisino the duration to make control the speed of the video & audio
@@ -53,10 +53,19 @@ one_video_only = {
     'enabled' : True,
 }
 subvideo = {
+    'x_min': -100,
+    'y_min': -100,
     'x_max': 1000,
     'y_max': 500,
 }
-is_remove_green_screen = True
+
+green_screen = {
+    'enabled' : True,
+    'color' : '00ff00',
+    'similarity' : '0.1',
+    'blend' : '1',
+}
+#is_remove_green_screen = True
 
 # 6 core => Video process total duration: 166.392323017
 multiprocessing_max_core = 6
