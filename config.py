@@ -30,7 +30,7 @@ min_octave = 2
 
 ##############For both Audio and Video################
 #Set it to very high to make sure the whole video & audio is being heard
-total_duration = 50000000
+total_duration = 12000
 #total_duration = 8000
 
 #Divisino the duration to make control the speed of the video & audio
@@ -53,8 +53,8 @@ one_video_only = {
     'enabled' : True,
 }
 subvideo = {
-    'x_min': -100,
-    'y_min': -100,
+    'x_min': -400,
+    'y_min': -400,
     'x_max': 1000,
     'y_max': 500,
 }
