@@ -60,7 +60,7 @@ def segment_video_mutliprocess( segment_video_infos ):
         else:
             segment_video_input_file = config.background_video
 
-        if config.green_screen['config'] == True:
+        if config.green_screen['enabled'] == True:
             green_screen_color = config.green_screen['color']
             green_screen_similarity = config.green_screen['similarity']
             green_screen_blend = config.green_screen['blend']
@@ -78,6 +78,18 @@ def segment_video_mutliprocess( segment_video_infos ):
                 "[ckout];[0:v][ckout]overlay=x=" + str(x) + ":y=" + str(y) + ":eof_action=pass[out]' -map '[out]' " + segment_video_output_file+" "
             )
             os.system(ffmpeg_command)
+
+            # segment_video = ffmpeg.input(segment_video_input_file)
+            # temp_video = ffmpeg.input(temp_mp4, itsoffset = itsoffset)
+            #
+            # temp_video = ffmpeg.filter('colorkey', color = green_screen_color, similarity = green_screen_similarity, blend = green_screen_blend)
+            # ffmpeg.overlay(segment_video, temp_video, x=x, y=y,eof_action='pass')
+            #
+            # segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
+            # ffmpeg.run(segment_video)
+
+
+
             #os.system("ffmpeg -i "+segment_video_input_file+" -itsoffset "+str(segment_start/float(1000))+" -i "+temp_mp4+" -loglevel panic -preset ultrafast -filter_complex '[1:v]colorkey=0x"+green_screen_color+":"+green_screen_similarity+":"+green_screen_blend+"[ckout];[0:v][ckout]overlay[out]' -map '[out]' " + segment_video_output_file)
         else:
             segment_video = ffmpeg.input(segment_video_input_file)
