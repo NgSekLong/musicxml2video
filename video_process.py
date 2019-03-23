@@ -6,61 +6,40 @@ import datetime
 from musicxml_processor import note_to_file
 import config
 from multiprocessing import Process, Pool, Manager
+import datetime
 
 
 def segment_video_mutliprocess( segment_video_infos ):
     segment_video_start_time = time.time()
 
-    import datetime
     segment = segment_video_infos['segment']
     start_timestamp = segment_video_infos['start_timestamp']
     segment_video_path = "tmp/"+start_timestamp+"/video_" +str(segment).zfill(3)+ ".mp4"
+    segment_video_input_file = config.background_video
+    segment_video = ffmpeg.input(segment_video_input_file)
+    counter = 0
     for segment_video_info in segment_video_infos['data']:
-
+        counter+=1
         segment_start = segment_video_info['segment_start']
         step_note = segment_video_info['step_note']
         note_instrument = segment_video_info['note_instrument']
         duration = segment_video_info['duration']
         octave = segment_video_info['octave']
 
-        # temp_mp4 = "tmp/"+start_timestamp+"/tmp"+str(segment)+".mp4"
-        # #clear temp mp4
-        # if os.path.exists(temp_mp4):
-        #     os.remove(temp_mp4)
-
-
         if config.one_video_only['enabled']:
             note_file = note_instrument + '/video.mp4'
         else:
             note_file = note_to_file(octave, step_note, note_instrument)
 
-        # temp_mp4 = "tmp/"+start_timestamp+"/tmp"+str(segment)+".mp4"
-        # #clear temp mp4
-        # if os.path.exists(temp_mp4):
-        #     os.remove(temp_mp4)
-        #
-        # (
-        #     ffmpeg
-        #     .input(note_file)
-        #     .trim(start=0, end=duration)
-        #     .output(temp_mp4, preset= 'ultrafast',  loglevel='panic')
-        #     .run()
-        # )
-
-
-
-        #ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp4
-
-        segment_video = None
-        segment_video_input_file = None
         segment_video_output_file = segment_video_path
-        if os.path.exists(segment_video_path):
-            os.rename(segment_video_path, segment_video_path + '.old')
-            segment_video_input_file = segment_video_path + '.old'
-        else:
-            segment_video_input_file = config.background_video
+        # if os.path.exists(segment_video_path):
+        #     os.rename(segment_video_path, segment_video_path + '.old')
+        #     segment_video_input_file = segment_video_path + '.old'
+        # else:
+        #     segment_video_input_file = config.background_video
 
-        itsoffset = segment_start/float(1000)
+        split_preventing_offset = 1/float(counter + 1000)
+        itsoffset = segment_start/float(1000) + split_preventing_offset
         x=random.randint(config.subvideo['x_min'],config.subvideo['x_max'])
         y=random.randint(config.subvideo['y_min'],config.subvideo['y_max'])
         end=config.segment_duration / float(1000)
@@ -68,7 +47,6 @@ def segment_video_mutliprocess( segment_video_infos ):
 
 
 
-        segment_video = ffmpeg.input(segment_video_input_file)
         temp_video = ffmpeg.input(note_file,itsoffset = itsoffset)
         temp_video = ffmpeg.trim(temp_video,start=0, end=trim_end )
 
@@ -80,8 +58,9 @@ def segment_video_mutliprocess( segment_video_infos ):
             #output sliced video to temp
         segment_video = ffmpeg.overlay(segment_video,temp_video,x=x,y=y,eof_action='pass')
         segment_video = ffmpeg.trim(segment_video, start=0, end=end)
-        segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
-        ffmpeg.run(segment_video)
+
+    segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
+    ffmpeg.run(segment_video)
 
 
             #os.system("ffmpeg -i "+segment_video_input_file+" -itsoffset "+str(segment_start/float(1000))+" -i "+temp_mp4+" -loglevel panic -preset ultrafast -filter_complex '[1:v]colorkey=0x"+green_screen_color+":"+green_screen_similarity+":"+gs_blend+"[ckout];[0:v][ckout]overlay[out]' -map '[out]' " + segment_video_output_file)
