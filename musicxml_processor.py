@@ -32,9 +32,14 @@ def get_note_stream():
                 note_strength = config.part_strength[part.attrib['id']]
             if part.attrib['id'] in config.part_instrument:
                 note_instrument = config.part_instrument[part.attrib['id']]
+            tempo = 90.0
             for measure in part:
                 for note in measure :
                     single_note = {}
+                    if note.tag == 'direction':
+                        direction = note #Fix the naming here
+                        sound = direction.find('sound')
+                        tempo = float(sound.attrib['tempo'])
                     if note.tag == 'note':
                         duration = note.find('duration')
                         single_note['duration'] = int(duration.text)
@@ -68,6 +73,7 @@ def get_note_stream():
 
                         single_note['note_strength'] = note_strength
                         single_note['note_instrument'] = note_instrument
+                        single_note['tempo'] = tempo
 
                         #single_note['note'] = 'input/c.mp4'
                         note_stream.append(single_note)
@@ -90,19 +96,25 @@ def get_formated_notes():
             new_note['step'] = note['step']
         if 'step_note' in note:
             new_note['step_note'] = note['step_note']
-            if note['step_note'] in config.extended_note['notes'] and note['octave'] == config.extended_note['octave']:
-                is_need_extended_note = True
+            if config.extended_note['enabled']:
+                if note['step_note'] in config.extended_note['notes'] and note['octave'] == config.extended_note['octave']:
+                    is_need_extended_note = True
         if 'ori_octave' in note:
             new_note['ori_octave'] = note['ori_octave']
         if 'octave' in note:
             new_note['octave'] = note['octave']
         if 'alter' in note:
             new_note['alter'] = note['alter']
-        new_note['duration'] = (note['duration'] *1.1 * (config.extended_note['duration'] if is_need_extended_note else 1) ) / float(config.speed_control)
-        new_note['start'] = note['start'] / float(config.speed_control)
+        new_note['tempo'] = note['tempo']
+
+        tempo_control = config.speed_control * 1 / float(note['tempo']) 
+
+        new_note['duration'] = (note['duration'] *1.1 * (config.extended_note['duration'] if is_need_extended_note else 1) ) * tempo_control
+        new_note['start'] = note['start'] * tempo_control
         new_note['note_strength'] = note['note_strength']
         new_note['note_instrument'] = note['note_instrument']
 
+        #print(new_note)
 
 
         notes.append(new_note)

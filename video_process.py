@@ -20,6 +20,7 @@ def segment_video_mutliprocess( segment_video_infos ):
     counter = 0
     for segment_video_info in segment_video_infos['data']:
         counter+=1
+
         segment_start = segment_video_info['segment_start']
         step_note = segment_video_info['step_note']
         note_instrument = segment_video_info['note_instrument']
@@ -58,9 +59,15 @@ def segment_video_mutliprocess( segment_video_infos ):
             #output sliced video to temp
         segment_video = ffmpeg.overlay(segment_video,temp_video,x=x,y=y,eof_action='pass')
         segment_video = ffmpeg.trim(segment_video, start=0, end=end)
-
-    segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',  loglevel='panic')
-    ffmpeg.run(segment_video)
+        # Process a batch of video
+        if counter > config.video_batch['limit']:
+            continue;
+            print('Warning: The number of video to be process is too much ( larger than ' +str(config.video_batch['limit'])+' ), maybe need to change speed_control?')
+        #print ('segment_video_info', segment_video_info)
+    output_segment_video(segment_video, segment_video_path)
+    # segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',
+    #     loglevel=config.ffmpeg['error_level'], threads=config.ffmpeg['threads'])
+    # ffmpeg.run(segment_video)
 
 
             #os.system("ffmpeg -i "+segment_video_input_file+" -itsoffset "+str(segment_start/float(1000))+" -i "+temp_mp4+" -loglevel panic -preset ultrafast -filter_complex '[1:v]colorkey=0x"+green_screen_color+":"+green_screen_similarity+":"+gs_blend+"[ckout];[0:v][ckout]overlay[out]' -map '[out]' " + segment_video_output_file)
@@ -71,6 +78,17 @@ def segment_video_mutliprocess( segment_video_infos ):
 
     print('Video process segment: '  + str(segment) + ' done, total duration: '+ str(datetime.timedelta(seconds=segment_video_elapsed)))
     return segment_video_path
+def output_segment_video(segment_video, segment_video_path):
+    # if os.path.exists(segment_video_path):
+    #     os.rename(segment_video_path, segment_video_path + '.old')
+    #     segment_video_input_file = segment_video_path + '.old'
+    # else:
+    #     segment_video_input_file = config.background_video
+    segment_video = ffmpeg.output(segment_video, segment_video_path, preset='ultrafast',
+        loglevel=config.ffmpeg['error_level'], threads=config.ffmpeg['threads'])
+
+    segment_video = ffmpeg.overwrite_output(segment_video)
+    ffmpeg.run(segment_video)
 
 def video_process(notes, start_timestamp):
     video_start_time = time.time()
@@ -117,11 +135,16 @@ def video_process(notes, start_timestamp):
 
 
     ######################Multiprocess by using Pool#########################
-    p = Pool(processes=config.multiprocessing_max_core)
-    #all_segment_video_infos = range(1,5)
-    all_video_path = p.map(segment_video_mutliprocess, all_segment_video_infos)
-    p.close()
-    p.join()
+    if config.multiprocessing['enabled']:
+        p = Pool(processes=config.multiprocessing['max_core'])
+        #all_segment_video_infos = range(1,5)
+        all_video_path = p.map(segment_video_mutliprocess, all_segment_video_infos)
+        p.close()
+        p.join()
+    else:
+        all_video_path = []
+        for segment_video_infos in all_segment_video_infos:
+            all_video_path.append(segment_video_mutliprocess(segment_video_infos))
 
 
     ######################Multiprocess by using Pool End#########################
@@ -141,7 +164,7 @@ def video_process(notes, start_timestamp):
     print("Combining video segment together")
     (
         ffmpeg
-        .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4',  loglevel='warning'),
+        .output(ffmpeg.input('tmp/'+start_timestamp+'/combine_video.mp4',  loglevel=config.ffmpeg['error_level']),
             ffmpeg.input('tmp/'+start_timestamp+'/sound.wav')['a'], 'tmp/'+start_timestamp+'/output.mp4' )
         .run()
     )

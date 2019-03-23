@@ -4,13 +4,13 @@ import os
 
 
 
-OUTPUT_TO_INPUT_DIR = 'ahh3'
+OUTPUT_TO_INPUT_DIR = 'yee1'
 
 SRC_DIR = expanduser("~") + '/Music/cleaned'
 
 FILE_PREFIX = '1'
 
-ORI_OCTAVE = 5
+ORI_OCTAVE = 4
 
 ORI_STEP_NOTE = 1
 
