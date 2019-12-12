@@ -9,9 +9,9 @@ Convert an MusicXML score to play by your selected video sample
 
 ## How to setup your own video Manually
 1. edit the `config.py` to change parameter!
-2. To add instrument, go to `input` folder, then add an folder name of your instrument. Change the `input/{instrument}/{octave}/{note}.mp4` videos to match the request, for for which notes correspond to which sound, see below:
+2. To add instrument, go to `input` folder, then add an folder name of your instrument. Change the `input/{instrument}/{octave}/{note}.mp3` audio to match the request, for for which notes correspond to which sound, see below:
 
-`
+```
 C => 1
 C# => 2
 D => 3
@@ -24,7 +24,12 @@ G# => 9
 A => 10
 A# => 11
 B => 12
-`
+```
+
+3. Copy the video into `input/{instrument}/video.mp4`
+
+Note: You can see `input/woah/` as an example for how the folder shouold be layout
+
 ## How to setup your own video Automatically (Linux only) (One video input only)
 1. You need to download Audacity first, it will be the software to help us do the batch auto tunning
 2. Locate the Audacity Macro folder, for mind is located on `~/snap/audacity/190/.audacity-data/Macros`

@@ -10,8 +10,8 @@ part_strength = {
 }
 
 part_instrument = {
-    'P1': 'input/yee1',
-    'P2': 'input/yee1',
+    'P1': 'input/woah',
+    'P2': 'input/woah',
 }
 
 #Note to number transformation
