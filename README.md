@@ -3,9 +3,15 @@ Convert an MusicXML score to play by your selected video sample
 
 ## Try it out!
 
-1. Install `ffmpeg` in your system!
-2. `pip install ffmpeg pydub`
+### By scripts!
+1. In debain based system: `apt-get install -y ffmpeg python python-pip`
+2. `pip install pydub ffmpeg-python`
 3. Try out **musiclxml2video** by `python main.py`
+4. Play the video inside `tmp/{timestamp}/output.mp4`
+
+### By docker!
+1. Use this command `sudo docker build -t musicxml2video . && sudo docker run --name musicxml2video -t musicxml2video && sudo docker cp musicxml2video:/musicxml2video/tmp/. tmp && sudo docker rm musicxml2video`
+2. Play the video inside `tmp/{timestamp}/output.mp4`
 
 ## How to setup your own video Manually
 1. edit the `config.py` to change parameter!
